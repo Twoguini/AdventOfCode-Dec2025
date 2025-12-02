@@ -1,0 +1,1 @@
+gcc -o dayOne partOne.c
