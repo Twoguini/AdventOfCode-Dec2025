@@ -22,7 +22,7 @@ int main() {
 
     int dialing = INITIAL_POSITION;
 
-    FILE *input = fopen("../inputs/dayOne.txt", "r");
+    FILE *input = fopen("../inputs/dayOneTest.txt", "r");
     if (!input) {
         printf("File Do Not Exists");
         return 1;
@@ -31,29 +31,32 @@ int main() {
     char currentStr[256];
     int steps;
     int zeros = 0;
+    int lastZeros = 0;
 
     while (fgets(currentStr, sizeof(currentStr), input)) {
         steps = atoi(&currentStr[1]);
+        lastZeros = zeros;
         printf("CURRENT POSIT: %d\n", dialing);
         if(strncmp(currentStr, "R", 1) == 0) { // Right
             printf("R%d -> ", steps);
             if((dialing + steps) > 99) {
-                zeros += (dialing + steps != 100) ? (dialing + steps) / 100 : 0; 
+                zeros += (dialing + steps) / 101;
                 dialing = (dialing + steps) % 100;
             } else dialing += steps;
             printf("%d\n", dialing);
         } else  { // Left
             printf("L%d -> ", steps);
+            zeros += (dialing + steps) / 100;
+            if((dialing + steps) > 100 && dialing > 0)zeros++;
             dialing = (dialing - steps) % 100;
-            if(steps > 100) zeros += steps / 100;
             if (dialing < 0) {
-                zeros++;
                 dialing += 100; 
             }
             printf("%d\n", dialing);
         }
         if(dialing == 0) zeros++; 
-        printf("Zeros %d\n", zeros);
+        if(zeros != lastZeros)printf("Zeros %d MUDANÇA\n", zeros);else printf("Zeros %d\n", zeros);
+        
     }
     
     printf("Recorrência de Zeros: %d\n", zeros);
