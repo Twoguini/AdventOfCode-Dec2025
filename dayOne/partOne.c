@@ -23,17 +23,23 @@ int main() {
 
     char currentStr[256];
     int steps;
+    int zeros = 0;
 
     while (fgets(currentStr, sizeof(currentStr), input)) {
         steps = atoi(&currentStr[1]);
-        
-        if(strncmp(currentStr, "R", 1)) { // Right
-            printf("R - %d\n", steps);
+        if(strncmp(currentStr, "R", 1) == 0) { // Right
+            if((dialing + steps) > 99) {
+                dialing = (dialing + steps) % 100;
+            } else dialing += steps;
         } else  { // Left
-            printf("L - %d\n", steps);
+            dialing = (dialing - steps) % 100;
+            if (dialing < 0) dialing += 100;
         }
+        if(dialing == 0) zeros++; 
     }
     
+    printf("Recorrência de Zeros: %d\n", zeros);
+
     fclose(input);
     return 0;
 }
