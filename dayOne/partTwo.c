@@ -49,7 +49,7 @@ int main() {
             printf("%d\n", dialing);
         } else  { // Left
             printf("L%d -> ", steps);
-            if(dialing - steps < -99) zeros += steps / 100;
+            if(dialing - steps <= -100) zeros += steps / 100;
             if(dialing - steps < 0 && dialing - steps >= -99 && lastDial > 0) zeros++;
             dialing = dialing - (steps % 100);
             if (dialing < 0) {
@@ -58,7 +58,7 @@ int main() {
             printf("%d\n", dialing);
         }
         if(dialing == 0) zeros++; 
-        if(zeros != lastZeros)printf("Zeros %d MUDANÇA\n", zeros);else printf("Zeros %d\n", zeros);
+        if(zeros != lastZeros)printf("Zeros %d MUDANÇA\n", zeros);
         
     }
     
