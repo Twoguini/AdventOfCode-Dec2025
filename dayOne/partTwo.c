@@ -22,7 +22,7 @@ int main() {
 
     int dialing = INITIAL_POSITION;
 
-    FILE *input = fopen("../inputs/dayOne.txt", "r");
+    FILE *input = fopen("../inputs/dayOneTest.txt", "r");
     if (!input) {
         printf("File Do Not Exists");
         return 1;
@@ -39,16 +39,14 @@ int main() {
         lastZeros = zeros;
         lastDial = dialing;
 
-        printf("CURRENT POSIT: %d\n", dialing);
         if(strncmp(currentStr, "R", 1) == 0) { // Right
-            printf("R%d -> ", steps);
             if((dialing + steps) > 99) {
+                printf("M99: CP: %d - Steps: R%d - D+S: %d", dialing, steps, dialing + steps);
                 zeros += (dialing + steps) / 101;
                 dialing = (dialing + steps) % 100;
             } else dialing += steps;
             printf("%d\n", dialing);
         } else  { // Left
-            printf("L%d -> ", steps);
             if(dialing - steps <= -100) zeros += steps / 100;
             if(dialing - steps < 0 && dialing - steps >= -99 && lastDial > 0) zeros++;
             dialing = dialing - (steps % 100);
@@ -58,7 +56,7 @@ int main() {
             printf("%d\n", dialing);
         }
         if(dialing == 0) zeros++; 
-        if(zeros != lastZeros)printf("Zeros %d MUDANÇA\n", zeros);
+        if(zeros != lastZeros)printf("Zeros %d\n", zeros);
         
     }
     
