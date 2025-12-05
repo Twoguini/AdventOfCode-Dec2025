@@ -6,6 +6,8 @@
 #define MAX 99
 #define INITIAL_POSITION 50
 
+// Wrong Answers = 6829 6847 (NEAR)
+
 ///      _____
 ///     _|___|_
 ///      (°~°)    
@@ -22,7 +24,7 @@ int main() {
 
     int dialing = INITIAL_POSITION;
 
-    FILE *input = fopen("../inputs/dayOneTest.txt", "r");
+    FILE *input = fopen("../inputs/dayOne.txt", "r");
     if (!input) {
         printf("File Do Not Exists");
         return 1;
@@ -39,16 +41,16 @@ int main() {
         lastZeros = zeros;
         lastDial = dialing;
 
+        printf("CURRENT POSIT: %d\n", dialing);
+        zeros += steps / 100;
         if(strncmp(currentStr, "R", 1) == 0) { // Right
+            printf("R%d -> ", steps);
             if((dialing + steps) > 99) {
-                printf("M99: CP: %d - Steps: R%d - D+S: %d", dialing, steps, dialing + steps);
-                zeros += (dialing + steps) / 101;
                 dialing = (dialing + steps) % 100;
             } else dialing += steps;
             printf("%d\n", dialing);
         } else  { // Left
-            if(dialing - steps <= -100) zeros += steps / 100;
-            if(dialing - steps < 0 && dialing - steps >= -99 && lastDial > 0) zeros++;
+            printf("L%d -> ", steps);
             dialing = dialing - (steps % 100);
             if (dialing < 0) {
                 dialing += 100;
