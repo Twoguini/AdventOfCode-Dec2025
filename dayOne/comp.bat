@@ -1,2 +1,2 @@
-gcc -o dayOne partOne.c
-gcc -o dayTwo partTwo.c
+gcc -o partOne partOne.c
+gcc -o partTwo partTwo.c
