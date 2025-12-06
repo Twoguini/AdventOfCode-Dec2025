@@ -18,7 +18,7 @@
 /// DOC: "Due to newer security protocols, please use password method 0x434C49434B until further notice."
 /// you're actually supposed to count the number of times any click causes the dial to point at 0, regardless of whether it happens during a rotation or at the end of one.
 
-/// REGEX FOR CORRECTION: \b[LR][1-9]\d{2,}\b.*
+/// This is a remainder for myself. Stop overcomplicating things!
 
 int main() {
 
@@ -45,12 +45,14 @@ int main() {
         zeros += steps / 100;
         if(strncmp(currentStr, "R", 1) == 0) { // Right
             printf("R%d -> ", steps);
+            if((steps % 100) + dialing > 100) zeros++;
             if((dialing + steps) > 99) {
                 dialing = (dialing + steps) % 100;
             } else dialing += steps;
             printf("%d\n", dialing);
         } else  { // Left
             printf("L%d -> ", steps);
+            if(dialing - (steps % 100) < 0 && lastDial != 0) zeros++;
             dialing = dialing - (steps % 100);
             if (dialing < 0) {
                 dialing += 100;
