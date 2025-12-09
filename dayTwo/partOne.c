@@ -13,6 +13,21 @@
 // WHEN INVALID
 /// invalid IDs by looking for any ID which is made only of some sequence of digits repeated twice.
 
+/// @brief checks if a number is made only of some sequence of digits repeated twice
+/// @param number 
+/// @return 1 for is made only of some sequence of digits repeated twice or 0 if that is not true
+int hasRepeatedSeq(char *number) {
+
+}
+
+/// @brief Returns the number of numbers that repeat the sequence of digits in the range
+/// @param minRange 
+/// @param maxRange 
+/// @return Number of numbers that repeat the sequence of digits in the range
+int repeatedSequences(char *minRange, char *maxRange) {
+
+}
+
 int main() {
   
   // Getting file size
@@ -37,24 +52,24 @@ int main() {
   /// Inside ranges logic Vars
   char *InsiCurrentRange;
   char *insiRangeDelimiter;
-  int  rangeMin;
-  int  rangeMax;
+  char rangeMin[256];
+  char rangeMax[256];
 
   while (currentRange != NULL) {
     printf("CURRENT RANGE: %s\n", currentRange);
 
     InsiCurrentRange = strtok_r(currentRange, "-", &insiRangeDelimiter);
-    while(insiRangeDelimiter != NULL) {
-      rangeMin = atoi(insiRangeDelimiter);
-      printf("MIN: %d - ", rangeMin);
-      insiRangeDelimiter = strtok_r(NULL, "-", &insiRangeDelimiter);
-      rangeMax = atoi(insiRangeDelimiter);
-      printf("MAX: %d\n", rangeMax);
+    while(InsiCurrentRange != NULL) {
+      strcpy(rangeMin, InsiCurrentRange);
+      printf("MIN: %s - ", rangeMin);
+      InsiCurrentRange = strtok_r(NULL, "-", &insiRangeDelimiter);
+      strcpy(rangeMax, InsiCurrentRange);
+      printf("MAX: %s\n", rangeMax);
+      InsiCurrentRange = strtok_r(NULL, "-", &insiRangeDelimiter);
     }
 
     currentRange = strtok_r(NULL, ",", &rangeDelimiter);
   }
-  
 
   fclose(input);
   free(inputLine);
