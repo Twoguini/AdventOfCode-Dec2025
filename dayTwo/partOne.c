@@ -18,7 +18,7 @@
 /// @return 1 for is made only of some sequence of digits repeated twice or 0 if that is not true
 int hasRepeatedSeq(char *number) {
 
-  int numberLen = strlen(number);
+  long long numberLen = strlen(number);
   char *halfNumber = (number + strlen(number)/2);
 
   // If nnumber length is not even, then it cannot repeat twice a sequence
@@ -37,9 +37,12 @@ int hasRepeatedSeq(char *number) {
 /// @return 0
 int repeatedSequences(char *minRange, char *maxRange, long long *totalSum) {
 
-  for(int i = atoi(minRange); i <= atoi(maxRange); i++) {
+  long long min = atoll(minRange);
+  long long max = atoll(maxRange);
+
+  for(long long i = min; i <= max; i++) {
     char compareC[256];
-    sprintf(compareC, "%d", i);
+    sprintf(compareC, "%lld", i);
 
     if(hasRepeatedSeq(compareC) == 1) {
       *totalSum += i;
@@ -60,7 +63,7 @@ int main() {
       return 1;
   }
   fseek(input, 0L, SEEK_END);
-  long lineSize = ftell(input);
+  long long lineSize = ftell(input);
   fseek(input, 0L, SEEK_SET);
   
   // Alocating Mem fro the file
