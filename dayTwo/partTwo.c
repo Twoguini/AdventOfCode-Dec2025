@@ -11,7 +11,7 @@
 /// Ex: 11-22 we have a range between 11 and 22
 
 // WHEN INVALID
-/// invalid IDs by looking for any ID which is made only of some sequence of digits repeated twice.
+/// invalid IDs by looking for any ID which is made only of some sequence of digits repeated at least twice.
 
 /// @brief checks if a number is made only of some sequence of digits repeated twice
 /// @param number 
@@ -20,20 +20,30 @@ int hasRepeatedSeq(char *number) {
 
   long long numberLen = strlen(number);
   char *halfNumber = (number + numberLen/2);
-  char *comparison = malloc(numberLen+1);
+  int pairNum = 0;
 
-  strncpy(comparison, number, 1);
-
-  printf("Comparison: %s\n", comparison[0]);
   if(strncmp(number, halfNumber, numberLen/2) == 0) {
-    free(comparison);
     return 1;
   } else {
+    // Compare i[0] with i[i+1] until it returns false
     for(long long i = 0; i < numberLen; i++) {
-      
+      if(strncmp(number, number+(i+1), i+1) != 0) {
+        // index of the comparison
+        pairNum = i+1;
+        break;
+      }
     }
+
+   if(pairNum != 0) {
+    // i cannot let the pointer to the current pair grow bigger than the last char of number - FIX
+     for (long long i = 0; i < numberLen; i++) {
+      printf("Current Pair: %s - How many cases? %d\n", number+(pairNum*(i+1)), pairNum);
+      strncmp(number, number+(pairNum*(i+1)), pairNum);
+    }
+   }
+    
+
   }
-  free(comparison);
   return 0; 
 }
 
@@ -49,7 +59,7 @@ int repeatedSequences(char *minRange, char *maxRange, long long *totalSum) {
   for(long long i = min; i <= max; i++) {
     char compareC[256];
     sprintf(compareC, "%lld", i);
-
+    
     if(hasRepeatedSeq(compareC) == 1) {
       *totalSum += i;
     }
